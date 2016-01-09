@@ -1,0 +1,31 @@
+{
+  "name": "ReactAndAngular",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NatalieWojciechowski/ReactAndAngular.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NatalieWojciechowski/ReactAndAngular/issues"
+  },
+  "homepage": "https://github.com/NatalieWojciechowski/ReactAndAngular",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.12.3",
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.1",
+    "gulp-jshint": "^1.8.4",
+    "gulp-livereload": "^2.1.1",
+    "gulp-minify-css": "^0.3.11",
+    "gulp-ruby-sass": "^1.0.5",
+    "gulp-sass": "^1.1.0",
+    "gulp-uglify": "^1.0.1"
+  }
+}
