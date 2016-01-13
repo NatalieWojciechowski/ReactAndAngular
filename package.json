@@ -16,7 +16,11 @@
     "url": "https://github.com/NatalieWojciechowski/ReactAndAngular/issues"
   },
   "homepage": "https://github.com/NatalieWojciechowski/ReactAndAngular",
-  "dependencies": {},
+  "dependencies": {
+    "babel": "^6.3.26",
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
+  },
   "devDependencies": {
     "express": "^4.12.3",
     "gulp": "^3.8.10",

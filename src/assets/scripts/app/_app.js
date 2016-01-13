@@ -1,25 +1,40 @@
-var app = angular.module('App', ['react'])
+var app = angular.module( 'App', ['react'] );
 
-.controller('mainCtrl', ['$scope', '$location', function($scope, $location) {
-  $scope.development = false;
+app.controller( 'mainCtrl', function( $scope ) {
+    $scope.compare = {
+      assurance: "There is no doubt,",
+      contender: "Sheep"
+    };
+} );
 
-  if($location && $location.host() == "localhost" ) {
-    if($location.port() == "8000")
-      $scope.development = true;
+app.value( "Greatest", React.createClass( {
+  propTypes: {
+    assurance: React.PropTypes.string.isRequired
+  },
+
+  render: function() {
+    return React.DOM.span( null,
+      this.props.assurance + ' Cows are the best animal ever.'
+    );
   }
-}])
+} ) );
 
-.directive('loadBar', [function() {
-  return {
-    restrict: 'A',
-    scope: true,
-    template:
-    '<div class="loading-bar">'+
-    '  <img src="../assets/images/ajax-loader.gif">'+
-    '  <div class="message">Loading... Please Wait</div>'+
-    '</div>',
-    link: function(scope, element, attr, controller) {
+app.value( "NearBest", React.createClass( {
+  propTypes: {
+    contender: React.PropTypes.string.isRequired
+  },
 
-    }
-  };
-}]);
+  render: function() {
+    return React.DOM.span( null,
+      this.props.contender + ' are almost as cool... but could never pass cows... ever.'
+    );
+  }
+} ) );
+
+app.directive( 'greatest', function( reactDirective ) {
+  return reactDirective( 'Greatest' );
+} );
+
+app.directive( 'near', function( reactDirective ) {
+  return reactDirective( 'NearBest' );
+} );

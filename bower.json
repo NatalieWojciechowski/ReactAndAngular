@@ -1,0 +1,16 @@
+{
+  "name": "ReactAndAngular",
+  "version": "1.0.0",
+  "homepage": "https://github.com/NatalieWojciechowski/ReactAndAngular",
+  "authors": [
+    "Natalie Wojciechowski <Wojciechowski813@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

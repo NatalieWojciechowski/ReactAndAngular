@@ -9,18 +9,24 @@
   <link rel="stylesheet" type="text/css" href="../assets/stylesheets/site.css">
 </head>
 <body ng-app="App" ng-controller="mainCtrl">
-  <div class="main-content">
-  FOO
-    <react-component name="HelloComponent" watch-depth="reference"/>
-  </div>
+  <div class="content">
+    <div class="header">
+      <h3>
+        <div><greatest assurance="compare.assurance"/></div>
+        <div><near contender="compare.contender"/></div>
+      </h3>
+    </div>
 
+    <form>
+      <input type="text" ng-model="compare.assurance"/>
+      <input type="text" ng-model="compare.contender"/>
+    </form>
+  </div>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
-  <script>window.angular || document.write('<script type="text/javascript" src="../assets/scripts/vendor/angularjs_1.3.14/angular.min.js"><\/script>');</script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script type="text/javascript" src="../assets/scripts/vendor/jquery_2.1.4/jquery.min.js"><\/script>');</script>
   <script src="../assets/scripts/vendor/react/react.js"></script>
   <script src="../assets/scripts/vendor/react/react-dom.js"></script>
   <script src="../assets/scripts/vendor/ngReact/ngReact.min.js"></script>
-  <script type="text/javascript" src="../assets/scripts/site.min.js"></script>
+  <script type="text/javascript" src="../assets/scripts/react/compiled_react_app.js"></script>
 </body>
 </html>

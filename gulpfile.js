@@ -3,6 +3,8 @@ var gulp = require('gulp');
 var express = require('express');
 var app = express();
 var concat = require('gulp-concat');
+var child_process = require('child_process');
+var exec = require('child_process').exec;
 var jshint = require('gulp-jshint');
 var livereload = require('gulp-livereload');
 var minifyCSS = require('gulp-minify-css');
@@ -11,12 +13,36 @@ var uglify = require('gulp-uglify');
 
 gulp.task('default', ['jshint', 'minify-js', 'sass', 'startServer'], function() {
   livereload.listen();
-  gulp.watch('./src/layouts/**/*.html', ['dupe-layouts'],
-    ['sass', livereload.changed]);
+  gulp.watch('./src/layouts/**/*.html', ['sass', livereload.changed]);
   gulp.watch('./src/assets/scripts/app/**/*.js', ['minify-js'],
     ['sass', livereload.changed]);
+  gulp.watch('./src/assets/scripts/react/compiled_react_app.js', livereload.changed);
   gulp.watch(['./src/assets/stylesheets/*.scss','./src/assets/stylesheets/*/*.scss'],
     ['sass', livereload.changed]);
+});
+
+gulp.task('webpack', function(cb) {
+  child = child_process.exec('./node_modules/webpack/bin/webpack.js -w -d',
+    function (error, stdout, stderr) {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+  });
+  console.log('starting webpack build');
+});
+
+gulp.task('webpack-dev', function(cb) {
+  child = child_process.exec('./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base ./app/',
+    function (error, stdout, stderr) {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+  });
+  console.log('starting webpack build');
 });
 
 // JS
@@ -31,8 +57,7 @@ gulp.task('minify-js', function(cb) {
   gulp.src('./src/assets/scripts/app/**/*.js')
     .pipe(concat('site.min.js'))
     // .pipe(uglify())
-    .pipe(gulp.dest('./src/assets/scripts/'))
-    .pipe(gulp.dest('./deploy/assets/scripts/'));
+    .pipe(gulp.dest('./src/assets/scripts/'));
   cb();
 });
 
@@ -49,8 +74,7 @@ gulp.task('sass', function () {
     })
     .pipe(concat('site.css'))
     .pipe(minifyCSS())
-    .pipe(gulp.dest('./src/assets/stylesheets/'))
-    .pipe(gulp.dest('./deploy/assets/stylesheets/'));
+    .pipe(gulp.dest('./src/assets/stylesheets/'));
 });
 
 
@@ -59,50 +83,4 @@ gulp.task('startServer', function (cb) {
 
   cb();
   app.listen(8000);
-});
-
-gulp.task('dupe-layouts', function (cb) {
-  gulp.src('./src/index.html')
-  .pipe(gulp.dest('./deploy'));
-
-  gulp.src('./src/layouts/**/*')
-  .pipe(gulp.dest('./deploy/layouts'));
-
-  cb();
-});
-
-
-gulp.task('build', ['minify-js', 'sass'], function (cb) {
-  gulp.src('./src/assets/scripts/site.min.js')
-  .pipe(gulp.dest('./deploy/assets/scripts/'));
-
-  gulp.src('./src/assets/scripts/vendor/**/*')
-  .pipe(gulp.dest('./deploy/assets/scripts/vendor/'));
-
-  gulp.src('./src/assets/images/**/*')
-  .pipe(gulp.dest('./deploy/assets/images/'));
-
-  gulp.src('./src/assets/stylesheets/site.css')
-  .pipe(gulp.dest('./deploy/assets/stylesheets/'));
-
-  gulp.src('./src/assets/fonts/**/*')
-  .pipe(gulp.dest('./deploy/assets/fonts/'));
-
-  gulp.src('./src/index.html')
-  .pipe(gulp.dest('./deploy'));
-
-  gulp.src('./src/layouts/**/*')
-  .pipe(gulp.dest('./deploy/layouts'));
-
-});
-
-
-gulp.task('buildServer', function() {
-  app.use(express.static(__dirname + '/deploy'));
-
-  gulp.watch('./src/assets/scripts/app/**/*.js', ['minify-js', 'build']);
-  gulp.watch(['./src/assets/stylesheets/*.scss','./src/assets/stylesheets/*/*.scss'],
-    ['sass', 'build', livereload.changed]);
-
-  app.listen(8001);
 });
